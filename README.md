@@ -14,6 +14,32 @@ The repo is structured as follows (change as needed):
 -   `02-analysis_data` contains the cleaned datasets that were constructed.
 -   `03-table_data` contains formatted data tables used to generate Quarto outputs.
 
+#### Data Strategy
+
+This project draws on Lee (2024), "Electoral Turnover and Government Efficiency: Evidence from Federal Procurement," and focuses on constructing a proxy for political connectedness among federal procurement suppliers.
+
+#### Sources
+
+| Source | Purpose |
+| --- | --- |
+| Registry of Lobbyists / revolving-door records | Identify individuals registered to lobby on behalf of supplier firms |
+| LinkedIn and public biographies | Reconstruct individual employment histories (roles, dates, seniority, organization) |
+| GEDS (Government Electronic Directory Services) | Verify and supplement government employment records |
+
+#### Construction Procedure
+
+1. Extract names of individuals linked to supplier firms from revolving-door and lobbying records.
+2. Search each individual's LinkedIn profile or public biography to reconstruct their prior employment history.
+3. Record role title, organization, dates held, and seniority level.
+4. Classify each prior role into one of the following categories: ministerial staff, elected office, senior public servant, policy adviser, regulator, procurement official, or lobbyist.
+5. Match the timing of each government role to the party in power at the time.
+6. Link the individual back to the corresponding supplier or lobbying firm.
+7. Code the firm as politically connected if at least one associated individual held a qualifying role.
+
+#### Operationalization
+
+A firm is coded as *politically connected* if at least one individual linked to it previously held a government, ministerial, political, regulatory, or procurement-related role. Revolving-door and lobbying records serve as the primary entry point; LinkedIn, public biographies, and GEDS are used to fill in and verify employment histories. This coding does not establish causal influence — it provides a systematic proxy for political access, insider knowledge, and potential government networks.
+
 ### `scripts/`  
 -   `00.0-run_pipeline.py` executes the entire data processing pipeline from simulation to final outputs.
 -   `01.0-simulate_data.py` generates synthetic datasets to test logic.
