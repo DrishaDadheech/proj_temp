@@ -14,31 +14,41 @@ The repo is structured as follows (change as needed):
 -   `02-analysis_data` contains the cleaned datasets that were constructed.
 -   `03-table_data` contains formatted data tables used to generate Quarto outputs.
 
-#### Data Strategy
+#### Data Strategy and Context
 
-This project draws on Lee (2024), "Electoral Turnover and Government Efficiency: Evidence from Federal Procurement," and focuses on constructing a proxy for political connectedness among federal procurement suppliers.
+This project draws on Lee (2025), "Electoral Turnover and Government Efficiency: Evidence from Federal Procurement" (*Journal of Politics* 87(2)), which proxies political connectedness using firms' campaign contribution patterns — specifically, whether a firm directed more than 60% of its total donations to the president's party. The Canadian institutional context requires a different operationalization. Federal contribution limits and disclosure norms differ substantially from the US, and the revolving-door phenomenon — the movement of personnel between government and the private sector — offers a more direct and observable structural proxy for political access in the Canadian federal procurement setting.
+
+The central goal is to construct a binary firm-level indicator of *political connectedness*, defined by the presence of at least one individual linked to the firm who previously held a qualifying government, ministerial, political, regulatory, or procurement-related role.
 
 #### Sources
 
-| Source | Purpose |
-| --- | --- |
-| Registry of Lobbyists / revolving-door records | Identify individuals registered to lobby on behalf of supplier firms |
-| LinkedIn and public biographies | Reconstruct individual employment histories (roles, dates, seniority, organization) |
-| GEDS (Government Electronic Directory Services) | Verify and supplement government employment records |
+| Source | Access | Purpose |
+| --- | --- | --- |
+| Registry of Lobbyists (Office of the Commissioner of Lobbying of Canada) | Public | Primary entry point: identify individuals registered to lobby on behalf of supplier firms |
+| Investigative Journalism Foundation (IJF) revolving-door and lobbying databases | Public | Cross-reference personnel with documented government-to-private-sector transitions |
+| LinkedIn (via Wharton Research Data Services / WRDS) | Wharton WRDS | Reconstruct individual employment histories; verify role titles, organizations, dates, and seniority |
+| Public biographies and organizational websites | Public | Supplement LinkedIn for senior individuals where WRDS coverage is incomplete |
+| GEDS (Government Electronic Directory Services) | Public | Verify and supplement current and recent federal government employment records |
 
 #### Construction Procedure
 
-1. Extract names of individuals linked to supplier firms from revolving-door and lobbying records.
-2. Search each individual's LinkedIn profile or public biography to reconstruct their prior employment history.
-3. Record role title, organization, dates held, and seniority level.
-4. Classify each prior role into one of the following categories: ministerial staff, elected office, senior public servant, policy adviser, regulator, procurement official, or lobbyist.
-5. Match the timing of each government role to the party in power at the time.
-6. Link the individual back to the corresponding supplier or lobbying firm.
-7. Code the firm as politically connected if at least one associated individual held a qualifying role.
+1. Extract names of individuals registered to lobby on behalf of supplier firms from the OCL Registry of Lobbyists and the IJF revolving-door database.
+2. Match each individual to their employment history via the WRDS LinkedIn dataset; supplement with public biographies and GEDS where coverage is incomplete.
+3. For each individual, record: role title, organization, employment dates, and seniority level for all positions held prior to joining the supplier or lobbying firm.
+4. Classify each prior role into one of the following categories: ministerial or political staff, elected official, senior public servant (EX-level or equivalent), policy adviser, regulator, procurement official, or registered lobbyist.
+5. Match the timing of each prior government role to the party in power at the time, using federal election dates and parliamentary records.
+6. Link the individual back to the corresponding supplier or lobbying firm using registration records and firm identifiers.
+7. Code the firm as *politically connected* (binary: 1/0) if at least one associated individual satisfies the role classification criteria above.
 
 #### Operationalization
 
-A firm is coded as *politically connected* if at least one individual linked to it previously held a government, ministerial, political, regulatory, or procurement-related role. Revolving-door and lobbying records serve as the primary entry point; LinkedIn, public biographies, and GEDS are used to fill in and verify employment histories. This coding does not establish causal influence — it provides a systematic proxy for political access, insider knowledge, and potential government networks.
+A firm is coded as *politically connected* if at least one individual linked to it previously held a qualifying role. The timing dimension — matching role tenure to the party in power — permits a distinction between connections to the incumbent government versus prior administrations, paralleling Lee's (2025) use of directional contribution shares to differentiate president-aligned from opposition-aligned firms.
+
+This coding does not establish causal influence. It constructs a systematic, observable proxy for political access, insider knowledge, and potential government networks — the structural conditions under which preferential contracting, if present, would be most likely to occur.
+
+#### Limitations
+
+The revolving-door proxy captures formal, documentable connections and will undercount informal networks. LinkedIn and GEDS coverage is incomplete, particularly for mid-level officials and individuals who left government before digital records were routine. These gaps introduce measurement error that would bias estimates toward zero, making any effects identified a conservative lower bound.
 
 ### `scripts/`  
 -   `00.0-run_pipeline.py` executes the entire data processing pipeline from simulation to final outputs.
