@@ -24,7 +24,7 @@ The pipeline proceeds in two stages: (1) extract company names from procurement 
 
 | Source | Access | Purpose |
 | --- | --- | --- |
-| Federal procurement data (Buyandsell / proactive disclosure) | Public | Starting point: supplier company names and contract details |
+| Federal procurement data (collected and cleaned by IJF, provided by program supervisor) | Supervisor-provided | Starting point: supplier company names and contract details |
 | Corporate registries (Corporations Canada, provincial equivalents) | Public | Identify directors and officers of procurement supplier firms |
 | Investigative Journalism Foundation (IJF) revolving-door and lobbying databases | Public (bulk CSV requires back-end data access) | Match directors against documented government-to-private-sector transitions and registered lobbying activity |
 | Registry of Lobbyists (Office of the Commissioner of Lobbying of Canada) | Public | Cross-reference directors against federal lobbying registrations |
